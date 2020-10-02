@@ -74,8 +74,10 @@ class RollbarLogger extends AbstractLogger
         return $this->config->getCustom();
     }
 
-    public function log($level, $toLog, array $context = array(), $isUncaught = false)
+    public function log($level, $toLog, array $context = array())
     {
+        $isUncaught = $context['isUncaught'] ? $context['isUncaught'] : false;
+
         if ($this->disabled()) {
             $this->verboseLogger()->notice('Rollbar is disabled');
             return new Response(0, "Disabled");
